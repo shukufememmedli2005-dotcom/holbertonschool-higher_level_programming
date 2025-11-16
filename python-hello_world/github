@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+git add .
+git commit -m s
+git config --global user.email shukufe.memmedli2005@gmail.com
+git config --global user.name shukufememmedli2005-dotcom
+git push

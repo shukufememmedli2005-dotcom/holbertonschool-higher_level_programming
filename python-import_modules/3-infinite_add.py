@@ -1,13 +1,13 @@
-#!/usr/bin/env python3
-from sys import argv, stderr, exit
+#!/usr/bin/python3
+from sys import argv
+
 
 def main():
-    try:
-        total = sum(int(s) for s in argv[1:])
-    except ValueError:
-        print("Error: all arguments must be integers", file=stderr)
-        exit(1)
+    total = 0
+    for i in range(1, len(argv)):
+        total += int(argv[i])
     print(total)
+
 
 if __name__ == "__main__":
     main()

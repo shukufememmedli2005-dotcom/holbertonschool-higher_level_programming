@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-a = 10
-b = 89
-a, b = b, a
-print("a={} - b={}".format(a, b))
+def delete_at(my_list=[], idx=0):
+    if idx < 0 or idx >= len(my_list):
+        return my_list
+    del my_list[idx]
+    return my_list

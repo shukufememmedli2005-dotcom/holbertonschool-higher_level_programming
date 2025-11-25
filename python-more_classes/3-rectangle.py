@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""Module that defines a Rectangle class"""
+
+
 class Rectangle:
     """Defines a rectangle"""
 
@@ -41,7 +44,8 @@ class Rectangle:
     def __str__(self):
         if self.__width == 0 or self.__height == 0:
             return ""
-        result = []
+        rows = []
         for _ in range(self.__height):
-            result.append("#" * self.__width)
-        return "\n".join(result)
+            rows.append("#" * self.__width)
+        return "\n".join(rows)y
+

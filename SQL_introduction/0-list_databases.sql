@@ -1,2 +1,2 @@
+-- Show all databases
 SHOW DATABASES;
---Shows the whole tablex

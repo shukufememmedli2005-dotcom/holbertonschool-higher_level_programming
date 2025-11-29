@@ -1,0 +1,4 @@
+--
+CREATE DATABSE IF NOT EXISTS hbtn_0c_0;
+USE hbtn_0c_0;
+SHOW CREATE TABLE first_table;

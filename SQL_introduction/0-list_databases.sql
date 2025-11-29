@@ -1,2 +1,2 @@
----Shows the whole tablex
 SHOW DATABASES;
+--Shows the whole tablex

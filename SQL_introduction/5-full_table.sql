@@ -1,4 +1,2 @@
---
-CREATE DATABSE IF NOT EXISTS hbtn_0c_0;
-USE hbtn_0c_0;
+-- Print full CREATE TABLE statement of first_table
 SHOW CREATE TABLE first_table;

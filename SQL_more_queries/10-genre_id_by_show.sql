@@ -1,9 +1,5 @@
--- List all cities with their state names in hbtn_0d_usa
--- Display: cities.id - cities.name - states.name (aliased as state_name)
--- Sort by cities.id in ascending order
-SELECT 
-    cities.id,
-    cities.name,
-    (SELECT states.name FROM states WHERE states.id = cities.state_id) AS state_name
-FROM cities
-ORDER BY cities.id ASC;
+-- List all shows with at least one genre
+SELECT tv_shows.title, tv_show_genres.genre_id
+FROM tv_shows
+JOIN tv_show_genres ON tv_shows.id = tv_show_genres.tv_show_id
+ORDER BY tv_shows.title ASC, tv_show_genres.genre_id ASC;

@@ -1,15 +1,5 @@
--- List all shows with their genres
--- Display: tv_shows.title - tv_genres.name
--- If a show has no genre, display NULL
--- Sort by tv_shows.title ASC and tv_genres.name ASC
-SELECT 
-    tv_shows.title,
-    tv_genres.name
-FROM tv_shows
-LEFT JOIN tv_show_genres
-    ON tv_shows.id = tv_show_genres.tv_show_id
-LEFT JOIN tv_genres
-    ON tv_show_genres.genre_id = tv_genres.id
-ORDER BY 
-    tv_shows.title ASC,
-    tv_genres.name ASC;
+SELECT s.title, g.name
+FROM tv_shows s
+LEFT JOIN tv_show_genres sg ON s.id = sg.show_id
+LEFT JOIN tv_genres g ON sg.genre_id = g.id
+ORDER BY s.title ASC, g.name ASC;

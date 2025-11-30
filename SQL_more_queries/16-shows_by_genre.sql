@@ -1,5 +1,7 @@
-SELECT s.title, g.name
-FROM tv_shows s
-LEFT JOIN tv_show_genres sg ON s.id = sg.show_id
-LEFT JOIN tv_genres g ON sg.genre_id = g.id
-ORDER BY s.title ASC, g.name ASC;
+-- List all shows and their genres (NULL if no genre)
+
+SELECT S.title, G.name
+FROM tv_shows S
+LEFT JOIN tv_show_genres SG ON S.id = SG.show_id
+LEFT JOIN tv_genres G ON SG.genre_id = G.id
+ORDER BY S.title ASC, G.name ASC;

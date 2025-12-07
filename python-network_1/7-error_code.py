@@ -1,20 +1,18 @@
 #!/usr/bin/python3
 """
-this module takes a URL, sends a request to the URL and displays the
-body of the response. if the HTTP status code is greater than or equal
-to 400, it prints the error code instead.
+Sends a request to a URL and displays the body of the response.
+Prints "Error code: <status>" if status >= 400.
 """
 import sys
 import requests
 
+url = sys.argv[1]
 
-if __name__ == "__main__":
-    url = sys.argv[1]
+try:
     response = requests.get(url)
-
-    # the requests library does not raise an exception for 4xx/5xx codes
-    # by default. it checks the status_code attribute manually.
     if response.status_code >= 400:
-        print("Error code: {}".format(response.status_code))
+        print(f"Error code: {response.status_code}")
     else:
         print(response.text)
+except requests.RequestException as e:
+    print(f"Error code: {getattr(e.response, 'status_code', 'Unknown')}")

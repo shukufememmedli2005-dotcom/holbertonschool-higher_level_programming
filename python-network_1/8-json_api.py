@@ -1,25 +1,39 @@
 #!/usr/bin/python3
 """
-Sends a POST request to http://0.0.0.0:5000/search_user
-with a letter as the q parameter and prints the result.
+this module takes in a letter and sends a POST request to
+http://0.0.0.0:5000/search_user with the letter as a parameter.
 """
-import sys
 import requests
+import sys
 
 
 if __name__ == "__main__":
-    q = sys.argv[1] if len(sys.argv) > 1 else ""
+    # handle the input
+    # if no argument is provided, q is empty string
+    if len(sys.argv) > 1:
+        letter = sys.argv[1]
+    else:
+        letter = ""
+
+    payload = {'q': letter}
     url = "http://0.0.0.0:5000/search_user"
-    data = {"q": q}
 
+    # send the request
+    response = requests.post(url, data=payload)
+
+    # parse the JSON
     try:
-        r = requests.post(url, data=data)
-        j = r.json()
+        json_response = response.json()
 
-        if j:
-            print("[{}] {}".format(j.get("id"), j.get("name")))
+        # check content
+        if json_response:
+            # if dictionary is not empty (truthiness check)
+            print("[{}] {}".format(json_response.get('id'),
+                                   json_response.get('name')))
         else:
+            # dictionary is empty {}
             print("No result")
 
     except ValueError:
-        print("Not a valid JSON")
+        # this catches JSONDecodeError if the response isn't valid JSON
+        print("Not a valid JSON"

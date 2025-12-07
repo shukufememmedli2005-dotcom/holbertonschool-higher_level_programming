@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
-Sends a request to a URL and displays the body of the response.
-Prints "Error code: <status>" if status >= 400.
+Sends a request to a URL and displays the response body.
+Prints "Error code: <status>" if the HTTP status code is >= 400.
 """
 import sys
 import requests

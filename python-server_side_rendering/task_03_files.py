@@ -4,59 +4,48 @@ import csv
 
 app = Flask(__name__)
 
-
-def read_json():
-    """reads the JSON file and returns a list of dictionaries"""
-    with open('products.json', 'r') as f:
+# Function to read JSON data
+def read_json(file_path):
+    with open(file_path) as f:
         return json.load(f)
 
-
-def read_csv():
-    """reads the CSV file and returns a list of dictionaries"""
+# Function to read CSV data
+def read_csv(file_path):
     products = []
-    with open('products.csv', 'r') as f:
-        # dictReader automatically uses the header row (id,name...) as keys
+    with open(file_path, newline='') as f:
         reader = csv.DictReader(f)
         for row in reader:
-            # CSV reads everything as strings. Convert ID to int to match JSON behavior
-            row['id'] = int(row['id'])
-            products.append(row)
+            # Convert id to int and price to float for consistency
+            products.append({
+                "id": int(row["id"]),
+                "name": row["name"],
+                "category": row["category"],
+                "price": float(row["price"])
+            })
     return products
-
 
 @app.route('/products')
 def products():
-    # get Query Parameters
     source = request.args.get('source')
-    p_id = request.args.get('id')
-
-    products_list = []
-    error_msg = None
-
-    # input Validation (The "Allowlist")
+    id_filter = request.args.get('id', type=int)
+    
+    if source not in ('json', 'csv'):
+        return render_template('product_display.html', error="Wrong source", products=None)
+    
+    # Read data from the correct source
     if source == 'json':
-        products_list = read_json()
-    elif source == 'csv':
-        products_list = read_csv()
+        data = read_json('products.json')
     else:
-        # EDGE CASE: Invalid source
-        return render_template('product_display.html', error_msg="Wrong source")
+        data = read_csv('products.csv')
 
-    # ID Filtering Logic
-    if p_id:
-        # filter the list to find the matching ID
-        # it converts items to string for safe comparison
-        filtered_products = [p for p in products_list if str(p['id']) == str(p_id)]
+    # Filter by id if provided
+    if id_filter:
+        filtered = [product for product in data if product["id"] == id_filter]
+        if not filtered:
+            return render_template('product_display.html', error="Product not found", products=None)
+        data = filtered
 
-        if not filtered_products:
-            # EDGE CASE: ID not found
-            return render_template('product_display.html', error_msg="Product not found")
-
-        products_list = filtered_products
-
-    # render Success
-    return render_template('product_display.html', products=products_list)
-
+    return render_template('product_display.html', products=data, error=None)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True)

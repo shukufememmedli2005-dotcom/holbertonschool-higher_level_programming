@@ -1,9 +1,18 @@
 #!/usr/bin/python3
-import urllib.request
+"""
+this module takes a URL, sends a request to the URL and displays the value
+of the variable X-Request-Id in the response header.
+"""
+import requests
+import sys
 
-with urllib.request.urlopen('https://intranet.hbtn.io/status') as response:
-    html = response.read()
-    print("Body response:")
-    print("\t- type:", type(html))
-    print("\t- content:", html)
-    print("\t- utf8 content:", html.decode('utf-8'))
+if __name__ == "__main__":
+    url = sys.argv[1]
+
+    # send request
+    response = requests.get(url)
+
+    # access headers
+    # response.headers is a dictionary-like object.
+    # it uses .get() to safely retrieve the specific header.
+    print(response.headers.get('X-Request-Id'))

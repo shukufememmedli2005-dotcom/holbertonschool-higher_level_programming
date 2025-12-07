@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """
-Python script that fetches the value of X-Request-Id from a URL's response header.
+Python script that fetches the value of X-Request-Id from a URL's
+response header.
+
 Usage: ./1-hbtn_header.py <URL>
 """
 import sys

@@ -36,4 +36,4 @@ if __name__ == "__main__":
 
     except ValueError:
         # this catches JSONDecodeError if the response isn't valid JSON
-        print("Not a valid JSON"
+        print("Not a valid JSON")
